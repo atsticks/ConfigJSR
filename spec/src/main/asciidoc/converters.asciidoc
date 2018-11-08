@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2016-2017 Contributors to the Eclipse Foundation
+// Copyright (c) 2016-2018 Contributors to the Eclipse Foundation
 //
 // See the NOTICE file(s) distributed with this work for additional
 // information regarding copyright ownership.
@@ -84,7 +84,7 @@ Array as a class type is supported in the programmatic lookup.
 
 [source, java]
 ----
-String[] myPets = ConfigProvider.getValue("myPet", String[].class);
+String[] myPets = ConfigProvider.getConfig().getValue("myPet", String[].class);
 ----
 
 myPets will be "dog", "cat", "dog,cat" as an array

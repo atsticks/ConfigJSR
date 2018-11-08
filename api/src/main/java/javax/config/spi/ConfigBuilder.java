@@ -1,6 +1,6 @@
 /*
  *******************************************************************************
- * Copyright (c) 2016-2017 Contributors to the Eclipse Foundation
+ * Copyright (c) 2016-2018 Contributors to the Eclipse Foundation
  *
  * See the NOTICE file(s) distributed with this work for additional
  * information regarding copyright ownership.
@@ -63,7 +63,7 @@ public interface ConfigBuilder {
     /**
      * Add the converters to be loaded via service loader pattern
      *
-     * @return the ConfigBuilder with the autodiscovered converters
+     * @return the ConfigBuilder with the auto-discovered converters
      */
     ConfigBuilder addDiscoveredConverters();
     /**

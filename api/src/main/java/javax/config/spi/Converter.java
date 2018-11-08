@@ -1,6 +1,6 @@
 /*
  ********************************************************************************
- * Copyright (c) 2011-2017 Contributors to the Eclipse Foundation
+ * Copyright (c) 2011-2018 Contributors to the Eclipse Foundation
  *
  * See the NOTICE file(s) distributed with this work for additional
  * information regarding copyright ownership.
@@ -61,12 +61,14 @@ package javax.config.spi;
  * <p>If no explicit Converter and no built-in Converter could be found for a certain type,
  * the {@code Config} provides an <em>Implicit Converter</em>, if</p>
  * <ul>
- *     <li>The target type {@code T} has a Constructor with a String parameter, or</li>
- *     <li>The target type {@code T} has a Constructor with a CharSequence parameter, or</li>
+ *     <li>the target type {@code T} has a {@code static T of(String)} method, or</li>
+ *     <li>the target type {@code T} has a {@code static T of(CharSequence)} method, or</li>
  *     <li>the target type {@code T} has a {@code static T valueOf(String)} method, or</li>
  *     <li>the target type {@code T} has a {@code static T valueOf(CharSequence)} method, or</li>
  *     <li>the target type {@code T} has a {@code static T parse(String)} method, or</li>
  *     <li>the target type {@code T} has a {@code static T parse(CharSequence)} method, or</li>
+ *     <li>The target type {@code T} has a Constructor with a String parameter, or</li>
+ *     <li>The target type {@code T} has a Constructor with a CharSequence parameter, or</li>
  * </ul>
  *
  * <p>The lookup will be done in the order of the above list.

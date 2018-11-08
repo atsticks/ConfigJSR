@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2017 Contributors to the Eclipse Foundation
+ * Copyright (c) 2016-2018 Contributors to the Eclipse Foundation
  *
  * See the NOTICE file(s) distributed with this work for additional
  * information regarding copyright ownership.
@@ -19,12 +19,6 @@
 
 package org.eclipse.configjsr;
 
-import static org.eclipse.configjsr.matchers.AdditionalMatchers.floatCloseTo;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.closeTo;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,8 +36,15 @@ import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.After;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.Test;
+
+import static org.eclipse.configjsr.matchers.AdditionalMatchers.floatCloseTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.closeTo;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
+import static org.testng.Assert.assertEquals;
 
 /**
  * Test cases for CDI-based API that test retrieving values from the configuration.
@@ -64,7 +65,7 @@ public class CDIPlainInjectionTest extends Arquillian {
                 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
     }
 
-    @After
+    @AfterTest
     public void tearDown() {
         clear_all_property_values();
     }
@@ -87,6 +88,10 @@ public class CDIPlainInjectionTest extends Arquillian {
         assertThat(bean.doubleObjProperty, is(closeTo(11.5, 0.1)));
 
         assertThat(bean.doublePropertyWithDefaultValue, is(closeTo(3.1415, 0.1)));
+
+        // variable replacement parts
+        assertEquals(bean.endpointOne, "http://some.host.name/endpointOne");
+        assertEquals(bean.endpointTwo, "http://${my.server}/endpointTwo");
     }
 
     @Test
@@ -184,6 +189,14 @@ public class CDIPlainInjectionTest extends Arquillian {
         @ConfigProperty(name="my.double.property")
         private double doubleProperty;
 
+        @Inject
+        @ConfigProperty(name="my.firstEndpoint")
+        private String endpointOne;
+
+        @Inject
+        @ConfigProperty(name="my.secondEndpoint", evaluateVariables = false)
+        private String endpointTwo;
+
         // the property is not configured in any ConfigSource but its defaultValue will
         // be used to set the field.
         @Inject
@@ -228,6 +241,12 @@ public class CDIPlainInjectionTest extends Arquillian {
             properties.put("my.long.property", "10");
             properties.put("my.float.property", "10.5");
             properties.put("my.double.property", "11.5");
+
+
+            properties.put("my.server", "some.host.name");
+            properties.put("my.firstEndpoint", "http://${my.server}/endpointOne");
+            properties.put("my.secondEndpoint", "http://${my.server}/endpointTwo");
+
             properties.put(DEFAULT_PROPERTY_BEAN_KEY, "pathConfigValue");
         }
 

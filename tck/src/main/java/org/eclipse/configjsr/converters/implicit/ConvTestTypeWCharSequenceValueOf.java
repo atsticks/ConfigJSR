@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2017 Contributors to the Eclipse Foundation
+ * Copyright (c) 2016-2018 Contributors to the Eclipse Foundation
  *
  * See the NOTICE file(s) distributed with this work for additional
  * information regarding copyright ownership.
@@ -27,6 +27,16 @@ package org.eclipse.configjsr.converters.implicit;
  */
 public class ConvTestTypeWCharSequenceValueOf {
     private String val;
+
+    public ConvTestTypeWCharSequenceValueOf() {
+    }
+
+    /**
+     * this ct should actually not be used by our test
+     */
+    public ConvTestTypeWCharSequenceValueOf(CharSequence val) {
+        this.val = "wrong" + val;
+    }
 
     public static ConvTestTypeWCharSequenceValueOf valueOf(CharSequence val) {
         ConvTestTypeWCharSequenceValueOf o = new ConvTestTypeWCharSequenceValueOf();

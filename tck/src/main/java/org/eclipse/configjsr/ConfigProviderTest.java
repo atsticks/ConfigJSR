@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2017 Contributors to the Eclipse Foundation
+ * Copyright (c) 2016-2018 Contributors to the Eclipse Foundation
  *
  * See the NOTICE file(s) distributed with this work for additional
  * information regarding copyright ownership.
@@ -43,8 +43,6 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
-import static org.junit.Assert.assertTrue;
 
 
 /**
@@ -153,11 +151,11 @@ public class ConfigProviderTest extends Arquillian {
         System.setProperty(configKey, configValue);
         AtomicBoolean foundKey = new AtomicBoolean(false);
         config.getConfigSources().forEach(c -> {
-            if(c.getPropertyNames().contains(configKey)) {
+            if (c.getPropertyNames().contains(configKey)) {
                 foundKey.set(true);
             }
         });
 
-        assertTrue("Unable to find property "+configKey, foundKey.get());
+        Assert.assertTrue(foundKey.get(), "Unable to find property " + configKey);
     }
 }

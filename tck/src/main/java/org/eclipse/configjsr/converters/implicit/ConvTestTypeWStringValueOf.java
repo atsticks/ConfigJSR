@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2017 Contributors to the Eclipse Foundation
+ * Copyright (c) 2016-2018 Contributors to the Eclipse Foundation
  *
  * See the NOTICE file(s) distributed with this work for additional
  * information regarding copyright ownership.
@@ -27,6 +27,16 @@ package org.eclipse.configjsr.converters.implicit;
  */
 public class ConvTestTypeWStringValueOf {
     private String val;
+
+    public ConvTestTypeWStringValueOf() {
+    }
+
+    /**
+     * this ct should actually not be used by our test
+     */
+    public ConvTestTypeWStringValueOf(String val) {
+        this.val = "wrong" + val;
+    }
 
     public static ConvTestTypeWStringValueOf valueOf(String val) {
         ConvTestTypeWStringValueOf o = new ConvTestTypeWStringValueOf();

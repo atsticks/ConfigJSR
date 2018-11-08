@@ -15,37 +15,36 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
  */
-package org.eclipse.configjsr.converters;
+package org.eclipse.configjsr.converters.implicit;
 
 /**
- * Class, which is converted using a Lambda based converter.
- * @author <a href="mailto:anatole@apache.org">Anatole Tresch</a>
+ * Part of the implicit Converter test.
+ *
+ * Sample class which has a valueOf(String) method
+ *
+ * @author <a href="mailto:struberg@yahoo.de">Mark Struberg</a>
  */
-public class Donald {
+public class ConvTestTypeWStringOf {
+    private String val;
 
-    private String name;
-    private boolean bool;
-
-    private Donald(String name, boolean bool) {
-
-        this.name = name;
-        this.bool = bool;
+    public ConvTestTypeWStringOf() {
     }
-
 
     /**
-     * Ensure constructor cannot be auto-detected/auto-constructed.
-     * @param name the name, not null
-     * @return a new instance, never null.
+     * this ct should actually not be used by our test
      */
-    public static Donald iLikeDonald(String name){
-        return new Donald(name, true);
+    public ConvTestTypeWStringOf(String val) {
+        this.val = "wrong" + val;
     }
 
-    public String getName(){
-        return name;
+    public static ConvTestTypeWStringOf of(String val) {
+        ConvTestTypeWStringOf o = new ConvTestTypeWStringOf();
+        o.val = val;
+        return o;
     }
 
+    public String getVal() {
+        return val;
+    }
 }
